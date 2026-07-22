@@ -2,7 +2,7 @@
 
 **An open, self-hostable, multimodal coding agent for real-world software engineering.**
 
-> **Status: Release candidate.** Weights and download links are published here on final release.
+> **Status: Release candidate.** The adapter weights are now on [Hugging Face](https://huggingface.co/SwarmDo/SwarmDo-A1); the confirmed final head-to-head lands here on release.
 > Everything below is measured, not marketing — including the parts that didn't work. Full numbers
 > in [RESULTS.md](RESULTS.md); how we measure in [../docs/METHODOLOGY.md](../docs/METHODOLOGY.md).
 
@@ -48,20 +48,22 @@ endpoint.
 > Until then, the recipe below documents exactly how A1 is served.
 
 ```bash
-# 1. Serve the model (single 80GB GPU)
-vllm serve SwarmDo/SwarmDo-A1 \
-  --enable-auto-tool-choice \
-  --tool-call-parser qwen3_xml \
-  --reasoning-parser qwen3
+# 1. Serve the base with the A1 adapter loaded (single 80GB GPU).
+#    A1 ships as a LoRA on the open Qwen3.6-27B base; vLLM loads it via --enable-lora.
+vllm serve Qwen/Qwen3.6-27B \
+  --enable-lora --lora-modules swarmdo-a1=SwarmDo/SwarmDo-A1 --max-lora-rank 32 \
+  --tool-call-parser qwen3_xml --reasoning-parser qwen3 --enforce-eager
 
-# 2. Call it like any OpenAI chat endpoint
+# 2. Call it like any OpenAI chat endpoint (model = "swarmdo-a1"; use "Qwen/Qwen3.6-27B" for the raw base)
 curl http://localhost:8000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "SwarmDo/SwarmDo-A1",
+    "model": "swarmdo-a1",
     "messages": [{"role": "user", "content": "Fix the off-by-one in average(): return sum(xs)/(len(xs)+1)"}]
   }'
 ```
+
+> **Weights:** the adapter is published at **[huggingface.co/SwarmDo/SwarmDo-A1](https://huggingface.co/SwarmDo/SwarmDo-A1)** (LoRA on `Qwen/Qwen3.6-27B`).
 
 **Multimodal use** — pass an image the standard way (`image_url` content block); the model reads the
 image as vision tokens and reasons over it alongside the text. For visual-coding (image → code), the
