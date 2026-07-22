@@ -44,8 +44,8 @@ orchestration, hooks, and agent-memory the system runs inside.
 SwarmDo-A1 serves through [vLLM](https://github.com/vllm-project/vllm) as an OpenAI-compatible
 endpoint.
 
-> Model weights: **published on Hugging Face with the release** (link added here on launch).
-> Until then, the recipe below documents exactly how A1 is served.
+> Adapter weights: **[huggingface.co/SwarmDo/SwarmDo-A1](https://huggingface.co/SwarmDo/SwarmDo-A1)**
+> (a LoRA on the open `Qwen/Qwen3.6-27B` base). The recipe below serves it end to end.
 
 ```bash
 # 1. Serve the base with the A1 adapter loaded (single 80GB GPU).
