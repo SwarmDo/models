@@ -30,11 +30,16 @@ mess lives elsewhere; what you'll find here is what's stable enough to build on.
 
 - **Genuinely open & self-hostable.** Built on open, Apache-2.0-licensed base weights that fit a
   single 80GB GPU. No API lock-in — you can serve the model yourself.
-- **Multimodal.** SwarmDo-A1 can debug from a *screenshot* of code or a broken UI, not just text —
-  an axis most coding LLMs can't touch.
-- **Measured, not demoed.** Every improvement claim is backed by a paired statistical test on a
-  contamination-controlled held-out set. When a result is modest or null, we say so. See
-  [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
+- **Execution-verified, not vibes.** The systems earn their gains by *running the code* — selecting
+  patches that pass the project's own tests. On the held-out set this beats the raw base decisively
+  (+50% more issues solved, paired McNemar p = 0.0005).
+- **Multimodal — and it's load-bearing.** SwarmDo-A1 can debug from a *screenshot* and reproduce a
+  chart as runnable code, scored by *rendering it and comparing to the target* — an objective,
+  un-bluffable reward. We tested that the image genuinely drives the output (p = 6e-05), and the
+  model self-generates its own render-verified training data. An axis most coding LLMs can't touch.
+- **Measured, not demoed — negatives included.** Every claim is a paired statistical test on a
+  contamination-controlled held-out set; when a result is modest, null, or we *nearly* mis-read one,
+  we say so. See [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
 
 ## Repository layout
 
