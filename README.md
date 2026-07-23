@@ -23,7 +23,7 @@ mess lives elsewhere; what you'll find here is what's stable enough to build on.
 | Model | Base | Size | Modality | Status | Card | Downloads |
 |-------|------|------|----------|--------|------|-----------|
 | **SwarmDo-A1** | Qwen3.6-27B | 27B | Text + Vision | Release candidate | [a1/](a1/) | [Adapter](https://huggingface.co/SwarmDo/SwarmDo-A1) · [GGUF](https://huggingface.co/SwarmDo/SwarmDo-A1-GGUF) |
-| **SwarmDo-A2** | Qwen3.6-27B | 27B | Text + Vision — **code & vision in one model** | Churn-gate cleared | [a2/](a2/) | [Adapter](https://huggingface.co/SwarmDo/SwarmDo-A2) |
+| **SwarmDo-A2** | Qwen3.6-27B | 27B | Text + Vision — **code & vision in one model** | Churn-gate cleared | [a2/](a2/) | [Adapter](https://huggingface.co/SwarmDo/SwarmDo-A2) · [Merged](https://huggingface.co/SwarmDo/SwarmDo-A2-merged) |
 
 *Further models (A3, B1, …) will be added as sibling directories with their own cards.*
 

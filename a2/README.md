@@ -45,7 +45,16 @@ paired and held-out, and **neither degraded** — see [RESULTS.md](RESULTS.md):
 ## Quickstart — serve **merged** (important)
 
 A2's adapter reaches the base's gated-DeltaNet layers, which **JIT-hang when served as a vLLM LoRA**. Serve A2 as
-**merged** weights. The VL-aware merge keeps the vision tower and emits the image-processor config vLLM needs:
+**merged** weights.
+
+**Turnkey (no merge step):** use the pre-merged weights **[SwarmDo/SwarmDo-A2-merged](https://huggingface.co/SwarmDo/SwarmDo-A2-merged)** (vision tower intact):
+
+```bash
+vllm serve SwarmDo/SwarmDo-A2-merged --served-model-name swarmdo-a2 \
+  --enable-auto-tool-choice --tool-call-parser qwen3_xml --reasoning-parser qwen3 --enforce-eager --trust-remote-code
+```
+
+Or merge the adapter yourself (the VL-aware merge keeps the vision tower + emits the image-processor config vLLM needs):
 
 ```bash
 # weights: https://huggingface.co/SwarmDo/SwarmDo-A2  (merge_lora_vl.py is in that repo)
