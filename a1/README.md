@@ -65,6 +65,18 @@ curl http://localhost:8000/v1/chat/completions \
 
 > **Weights:** the adapter is published at **[huggingface.co/SwarmDo/SwarmDo-A1](https://huggingface.co/SwarmDo/SwarmDo-A1)** (LoRA on `Qwen/Qwen3.6-27B`).
 
+### Run it locally (GGUF — Ollama / LM Studio / llama.cpp)
+
+For a one-command local run — **no account needed**:
+
+```bash
+ollama run hf.co/SwarmDo/SwarmDo-A1-GGUF:Q4_K_M
+```
+
+GGUF weights: **[huggingface.co/SwarmDo/SwarmDo-A1-GGUF](https://huggingface.co/SwarmDo/SwarmDo-A1-GGUF)**
+(Q4_K_M ~16.5 GB fits a single 24 GB GPU or a 32 GB Mac; Q8_0 ~28.6 GB; LM Studio auto-indexes it). The GGUF is
+**text-only** — for the full multimodal + execution-verified system, self-host with vLLM as shown above.
+
 **Multimodal use** — pass an image the standard way (`image_url` content block); the model reads the
 image as vision tokens and reasons over it alongside the text. For visual-coding (image → code), the
 model returns runnable code you can execute and diff against the target.
@@ -78,7 +90,7 @@ model returns runnable code you can execute and diff against the target.
 - The base is linear-attention with a fixed-size recurrent state, so long agentic contexts cost
   *prefill tokens*, not growing KV-cache memory.
 - **On-device / cheap-GPU:** the architecture is supported today by MLX (4-bit, ~16GB, vision kept),
-  GGUF (llama.cpp/Ollama), and GPTQ-Int4 vLLM (single 24GB GPU).
+  [GGUF (llama.cpp/Ollama)](https://huggingface.co/SwarmDo/SwarmDo-A1-GGUF), and GPTQ-Int4 vLLM (single 24GB GPU).
 
 ## Intended use & limitations
 
